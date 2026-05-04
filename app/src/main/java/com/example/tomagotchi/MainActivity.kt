@@ -36,9 +36,24 @@ class MainActivity : AppCompatActivity() {
         val sleepButton = findViewById<Button>(R.id.sleepButton)
         val nameText = findViewById<TextView>(R.id.name)
 
-        val frames = listOf(
+        val peachAdultFrames = listOf(
             R.drawable.peachboy,
             R.drawable.peachboyup
+        )
+
+        val peachBabyFrames = listOf(
+            R.drawable.peachboybaby,
+            R.drawable.peachboybabyup
+        )
+
+        //Different vector images of peach
+        val versionsOfPeach = listOf(
+            R.drawable.peachboy,
+            R.drawable.peachboyup,
+            R.drawable.egg,
+            R.drawable.brokenegg,
+            R.drawable.peachboybaby,
+            R.drawable.peachboybabyup
         )
 
         var currentFrame = 0
@@ -48,6 +63,8 @@ class MainActivity : AppCompatActivity() {
         //the user to make a name for their tomagotchi
         //Once the name is chosen it cannot be edited
         startGameButton.setOnClickListener {
+            peachboy.setImageResource(versionsOfPeach[2])
+            peachboy.translationY = 60f
             peachboy.visibility = View.VISIBLE
             startGameButton.visibility = View.GONE
             editName.visibility = View.VISIBLE
@@ -55,17 +72,25 @@ class MainActivity : AppCompatActivity() {
             confirmNameButton.visibility = View.VISIBLE
         }
 
-
-
-        val animationRunnable = object : Runnable {
+        //Baby tomagotchi animation that runs back and forth
+        //Hand waving
+        val babyRunnable = object : Runnable {
             override fun run() {
-                peachboy.setImageResource(frames[currentFrame])
-                currentFrame = (currentFrame + 1) % frames.size
+                peachboy.setImageResource(peachBabyFrames[currentFrame])
+                currentFrame = (currentFrame + 1) % peachBabyFrames.size
                 handler.postDelayed(this, 500)
             }
         }
 
-        handler.post(animationRunnable)
+        //Adult tomagotchi animation that runs back and forth
+        //Hand waving
+        val adultRunnable = object : Runnable {
+            override fun run() {
+                peachboy.setImageResource(peachAdultFrames[currentFrame])
+                currentFrame = (currentFrame + 1) % peachAdultFrames.size
+                handler.postDelayed(this, 500)
+            }
+        }
 
         //Confirms the player's tomagotchi name
         //Hides the name grabbing buttons/textviews etc.
@@ -82,9 +107,27 @@ class MainActivity : AppCompatActivity() {
             waterButton.visibility = View.VISIBLE
             sleepButton.visibility = View.VISIBLE
 
-            //Set the tomagotchi's name :)
             nameText.text = tomagotchiName
             nameText.visibility = View.VISIBLE
+
+            //Egg cracks
+            handler.postDelayed({
+                //Broken egg
+                peachboy.setImageResource(versionsOfPeach[3])
+                peachboy.translationY = 60f
+                //Broken egg shows for a second then turns into baby!
+                handler.postDelayed({
+                    peachboy.translationY = 0f
+                    handler.post(babyRunnable)
+
+                    //After 1 minute, tomagotchi becomes an adult!
+                    handler.postDelayed({
+                        handler.removeCallbacks(babyRunnable)
+                        handler.post(adultRunnable)
+                    }, 60000)
+
+                }, 800)
+            }, 1000)
         }
     }
 }
