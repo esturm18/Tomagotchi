@@ -192,4 +192,77 @@
         app:layout_constraintStart_toStartOf="parent"
         android:visibility="invisible"/>
 
+    <LinearLayout
+        android:id="@+id/feedingOverlay"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/whiteRect"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/hintText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:fontFamily="@font/balsamiq_sans"
+            android:textSize="18sp"
+            android:padding="12dp"/>
+
+        <TextView
+            android:id="@+id/strikesText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="26sp"
+            android:padding="4dp"/>
+
+        <TextView
+            android:id="@+id/feedResultText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:fontFamily="@font/balsamiq_sans"
+            android:textSize="16sp"
+            android:padding="4dp"/>
+
+        <Button
+            android:id="@+id/option1Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:fontFamily="@font/balsamiq_sans"
+            android:backgroundTint="#E67272"/>
+
+        <Button
+            android:id="@+id/option2Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:fontFamily="@font/balsamiq_sans"
+            android:backgroundTint="#7DCE80"/>
+
+        <Button
+            android:id="@+id/option3Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:fontFamily="@font/balsamiq_sans"
+            android:backgroundTint="#88BDD3"/>
+
+        <Button
+            android:id="@+id/option4Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:fontFamily="@font/balsamiq_sans"
+            android:backgroundTint="#C8A2E6"/>
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
