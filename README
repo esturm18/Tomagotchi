@@ -1,0 +1,41 @@
+# Tomagotchi
+
+An Android virtual pet app built in Kotlin. Name your pet, keep it alive, and see how many days you can survive.
+
+---
+
+## Stack
+
+- Kotlin
+- Android ConstraintLayout
+- SharedPreferences for score persistence
+- Handler / Runnable for game timers
+
+---
+
+## How It Works
+
+The game runs entirely in `MainActivity.kt`. The player names their pet, watches it hatch from an egg, and responds to its needs through feeding, water, sleep, and play interactions. Background runnables fire on random intervals to keep the pet active and demanding. A day counter tracks survival time at 2 minutes per day.
+
+If the pet is fed incorrectly three times, the player gets one last chance to save it. Miss that and it's over.
+
+Scores are saved locally and displayed on a simple leaderboard.
+
+---
+
+## Adding Content
+
+New food challenges can be added to the `foodChallenges` list at the top of `MainActivity.kt`. Each entry takes a hint string and a list of exactly four options.
+
+---
+
+## Future Plans
+
+- More minigames beyond rock paper scissors
+- Mood and hunger meters that deplete over time
+- Multiple evolution stages with unique graphics
+- Multiple pet profiles
+- Push notifications when the pet needs attention
+- Home screen widget
+- Local multiplayer
+- In-game shop using points earned from minigames

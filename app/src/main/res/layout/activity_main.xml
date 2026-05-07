@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -21,6 +24,22 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/diamondbackdrop" />
+
+    <Button
+        android:id="@+id/leaderboardButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#E67272"
+        android:fontFamily="@font/balsamiq_sans"
+        android:text="🏆 Best Scores"
+        android:textSize="18sp"
+        android:visibility="gone"
+        app:cornerRadius="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/whiteRect"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tomagotchiTitle"
+        app:layout_constraintVertical_bias="0.5" />
 
     <View
         android:id="@+id/whiteRect"
@@ -122,6 +141,22 @@
         app:layout_constraintTop_toBottomOf="@+id/whiteRect"
         app:layout_constraintVertical_bias="0.226"
         android:visibility="invisible"/>
+
+    <Button
+        android:id="@+id/playButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#F4A460"
+        android:fontFamily="@font/balsamiq_sans"
+        android:text="🎮 Play"
+        android:textSize="25sp"
+        android:visibility="gone"
+        app:cornerRadius="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/whiteRect"
+        app:layout_constraintVertical_bias="0.45" />
 
     <Button
         android:id="@+id/confirmNameButton"
@@ -262,6 +297,140 @@
             android:layout_margin="4dp"
             android:fontFamily="@font/balsamiq_sans"
             android:backgroundTint="#C8A2E6"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/needsText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/balsamiq_sans"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:padding="12dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/feedButton"
+        app:layout_constraintVertical_bias="0.75" />
+
+    <TextView
+        android:id="@+id/sleepEmojiText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="😴 💤 🌙"
+        android:textSize="60sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/whiteRect"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/whiteRect" />
+
+    <Button
+        android:id="@+id/wakeUpButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#E67272"
+        android:fontFamily="@font/balsamiq_sans"
+        android:text="Wake Up!"
+        android:textSize="25sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/whiteRect"
+        app:layout_constraintVertical_bias="0.226" />
+
+    <!-- days alive counter -->
+    <TextView
+        android:id="@+id/daysText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/balsamiq_sans"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp" />
+
+    <!-- leaderboard button -->
+    <Button
+        android:id="@+id/leaderboardButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#E67272"
+        android:fontFamily="@font/balsamiq_sans"
+        android:text="🏆 Best Scores"
+        android:textSize="18sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0.25"
+        app:layout_constraintTop_toBottomOf="@+id/startGameButton" />
+
+    <!-- rock paper scissors overlay -->
+    <LinearLayout
+        android:id="@+id/rpsOverlay"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/whiteRect"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/rpsPromptText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/balsamiq_sans"
+            android:gravity="center"
+            android:padding="12dp"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/rpsResultText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/balsamiq_sans"
+            android:gravity="center"
+            android:padding="8dp"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/rockButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:backgroundTint="#E67272"
+            android:fontFamily="@font/balsamiq_sans"
+            android:text="🪨 Rock" />
+
+        <Button
+            android:id="@+id/paperButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:backgroundTint="#7DCE80"
+            android:fontFamily="@font/balsamiq_sans"
+            android:text="📄 Paper" />
+
+        <Button
+            android:id="@+id/scissorsButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:backgroundTint="#88BDD3"
+            android:fontFamily="@font/balsamiq_sans"
+            android:text="✂️ Scissors" />
 
     </LinearLayout>
 
