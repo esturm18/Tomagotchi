@@ -1,0 +1,114 @@
+# Tomagotchi
+
+Android virtual pet app built in Kotlin. The player names a character, keeps it fed and entertained, and tries to survive as many days as possible.
+
+---
+
+
+## Key Classes and Data
+
+### FoodChallenge
+```kotlin
+data class FoodChallenge(val hint: String, val options: List<String>)
+```
+Holds a food request string and a list of four restaurant options. One option is randomly selected as the correct answer at runtime.
+
+### foodChallenges
+Top-level list of all FoodChallenge entries. Add new entries here to expand the feeding game.
+
+### MainActivity state variables
+| Variable | Type | Purpose |
+|---|---|---|
+| wrongAttempts | Int | Tracks wrong answers in the current feeding round |
+| currentChallenge | FoodChallenge? | The active food challenge |
+| isAlive | Boolean | Whether the pet is still alive |
+| isReviveChance | Boolean | Whether the player is in the last-chance revival round |
+| currentCorrectAnswer | String | The correct answer for the current challenge |
+| daysAlive | Int | How many days the pet has survived |
+| isSleeping | Boolean | Whether the pet is currently asleep |
+
+---
+
+## Core Functions
+
+### UI
+- `showMainButtons()` - Makes feed, water, sleep, play, name, days, and leaderboard visible
+- `hideMainButtons()` - Hides all main buttons when an overlay is active
+- `showNeedMessage(msg)` - Shows a speech bubble that auto-dismisses after 8 seconds
+- `clearNeeds()` - Immediately hides the speech bubble
+- `updateStrikes()` - Refreshes the heart/skull display during feeding
+
+### Game flow
+- `startFeedingGame()` - Picks a random food challenge and shows the feeding overlay
+- `handleOptionClick(chosen)` - Processes a food option tap, handles strikes and revival
+- `killTomagotchi()` - Triggers the revival round after 3 wrong answers
+- `permanentDeath()` - Ends the game and shows the start over screen
+- `startRPS()` - Opens the rock paper scissors overlay
+- `handleRPS(playerChoice)` - Resolves the RPS round against a random pick
+- `showLeaderboard()` - Reads and displays the top 5 scores
+- `saveScore(days)` - Writes a score to SharedPreferences
+
+### Background timers
+- `dayRunnable` - Increments the day counter every 2 minutes, triggers evolution at day 3
+- `boredRunnable` - Fires every 10-20 seconds, shows a bored message or triggers RPS
+- `needsRunnable` - Fires every 20-45 seconds, shows a random care reminder
+
+### Animation
+- `babyRunnable` - Alternates between baby frames at 500ms intervals
+- `adultRunnable` - Alternates between adult frames at 500ms intervals
+
+---
+
+## Game Logic Notes
+
+**Feeding** - A random challenge is picked and one of its four options is chosen as correct. The options are shuffled before display so the correct answer position is random each time.
+
+**Strikes** - Three wrong answers trigger `killTomagotchi()`, which starts a revival round with a fresh challenge. A wrong answer in the revival round calls `permanentDeath()`.
+
+**Sleep** - Sets `isSleeping = true`, which silences both `boredRunnable` and `needsRunnable` until the player wakes the pet.
+
+**Days** - One day equals 120,000ms (2 minutes). Change this value in `dayRunnable` to adjust game speed.
+
+**Scores** - Stored in SharedPreferences under the key `tomagotchi`. Up to 5 scores are kept, sorted descending.
+
+---
+
+## Adding Content
+
+**New food category** - Add a `FoodChallenge` entry to the `foodChallenges` list at the top of `MainActivity.kt`.
+
+**New bored message** - Add a string to the `boredMessages` list inside `onCreate`.
+
+**New needs message** - Add a string to the `messages` list inside `needsRunnable`.
+
+---
+
+## Future Plans
+
+### More minigames
+- Memory match card game
+- Trivia questions
+- Simon Says button sequence
+- A tap-based catching game
+
+### Custom graphics
+- Additional animation frames for smoother movement
+- Multiple evolved forms at different day milestones
+- Seasonal skins and unlockable character styles
+
+### Friends and social features
+- Add multiple pets and switch between them
+- Name and save multiple Tomagotchi profiles
+- Share a run summary or score with friends
+- Local multiplayer RPS between two devices
+
+### Gameplay depth
+- Mood and hunger meters that deplete over time
+- Consequences for ignoring needs beyond messages
+- Rare random events
+- An in-game shop using points earned from minigames
+
+### Technical
+- Persist game state across app restarts using Room or DataStore
+- Notifications to remind the player when the pet needs attention
+- Widget support to check on the pet from the home screen
