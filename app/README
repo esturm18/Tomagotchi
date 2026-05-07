@@ -1,41 +1,171 @@
 # Tomagotchi
 
-An Android virtual pet app built in Kotlin. Name your pet, keep it alive, and see how many days you can survive.
+An Android virtual pet app built in Kotlin. The player names a character called Peachboy, keeps it fed and entertained, and tries to survive as many in-game days as possible before the pet dies.
 
 ---
 
-## Stack
+# Project Members
 
+Emma Sturm and Maria Stefanovic 
+
+---
+
+# App Description
+
+Tomagotchi is a virtual pet game inspired by classic handheld pet simulators. The player takes care of Peachboy by feeding it, playing games with it, and making sure it survives as long as possible.
+
+The app includes:
+
+- Feeding minigame with randomized food challenges
+- Rock paper scissors minigame
+- Sleep mode
+- Day survival counter
+- Evolution stages
+- Three-strike death system with revival chance
+- Local leaderboard using SharedPreferences
+
+The goal of the game is to keep Peachboy alive for as many in-game days as possible.
+
+---
+
+# Dependencies
+
+- Android Studio Hedgehog or newer
 - Kotlin
-- Android ConstraintLayout
-- SharedPreferences for score persistence
-- Handler / Runnable for game timers
+- Minimum SDK: API 24
+- Target SDK: API 34
+- Android emulator or Android device
+
+The app does not require:
+
+- Internet connection
+- External APIs
+- API keys
+- A backend server
+- Third-party services
 
 ---
 
-## How It Works
+# Setup
 
-The game runs entirely in `MainActivity.kt`. The player names their pet, watches it hatch from an egg, and responds to its needs through feeding, water, sleep, and play interactions. Background runnables fire on random intervals to keep the pet active and demanding. A day counter tracks survival time at 2 minutes per day.
+No special setup is required.
 
-If the pet is fed incorrectly three times, the player gets one last chance to save it. Miss that and it's over.
+To run the project:
 
-Scores are saved locally and displayed on a simple leaderboard.
-
----
-
-## Adding Content
-
-New food challenges can be added to the `foodChallenges` list at the top of `MainActivity.kt`. Each entry takes a hint string and a list of exactly four options.
+1. Clone or download the repository
+2. Open the project in Android Studio
+3. Allow Gradle to sync
+4. Run the app on an emulator or Android device
 
 ---
 
-## Future Plans
+# Build and Deployment
 
-- More minigames beyond rock paper scissors
-- Mood and hunger meters that deplete over time
-- Multiple evolution stages with unique graphics
-- Multiple pet profiles
-- Push notifications when the pet needs attention
-- Home screen widget
-- Local multiplayer
-- In-game shop using points earned from minigames
+No special deployment process is required.
+
+The app can be built and tested directly through Android Studio using the normal Run button.
+
+---
+
+# App Structure
+
+The app uses a single-activity architecture. All game logic is handled inside `MainActivity.kt`, while the UI is defined in `activity_main.xml` using `ConstraintLayout`.
+
+## Model
+
+Game state is stored using private variables inside `MainActivity`:
+
+- `isAlive` — tracks whether the pet is alive
+- `isSleeping` — tracks whether the pet is sleeping
+- `daysAlive` — counts survival days
+- `wrongAttempts` — strike count during feeding
+- `isReviveChance` — tracks final revival state
+- `currentCorrectAnswer` — stores the active correct answer
+- `foodChallenges` — list containing feeding challenge data
+
+## View
+
+The layout uses `ConstraintLayout` with overlapping `LinearLayouts` for feeding and RPS overlays. Screen changes are handled by switching visibility states (`VISIBLE`, `INVISIBLE`, `GONE`).
+
+The app does not use fragments.
+
+## Controller
+
+`MainActivity` also acts as the controller. It manages button listeners, timers, and state transitions.
+
+Main functions include:
+
+- `showMainButtons()` / `hideMainButtons()`
+- `startFeedingGame()` / `handleOptionClick()`
+- `startRPS()` / `handleRPS()`
+- `killTomagotchi()` / `permanentDeath()`
+- `saveScore()` / `getScores()`
+
+---
+
+# Timers
+
+Three recurring `Runnable` timers run after the game starts:
+
+- `dayRunnable` — runs every 120 seconds and increments the day counter
+- `needsRunnable` — displays random care reminders every 20–45 seconds
+- `boredRunnable` — triggers boredom events or RPS every 10–20 seconds
+
+Each timer checks `isAlive` and `isSleeping` before running.
+
+---
+
+# Features
+
+- Egg hatching animation
+- Pet evolution stages
+- Feeding minigame
+- Rock paper scissors minigame
+- Sleep mode
+- Randomized events
+- Survival tracking
+- Local leaderboard
+- Full replay/reset functionality
+
+---
+
+# Design Decisions
+
+## Single Activity Instead of Fragments
+
+Since the app is relatively small, using fragments would have added unnecessary complexity. Managing screen states through visibility changes kept the structure simpler.
+
+## Handler/Runnable Instead of Coroutines
+
+The timer system uses Android’s `Handler` API because all updates happen on the main thread and the timing requirements are simple.
+
+## SharedPreferences for Storage
+
+The app only stores leaderboard scores, so `SharedPreferences` was enough for persistence.
+
+## Visibility Toggling for Overlays
+
+The feeding and RPS overlays are shown and hidden instead of using navigation between screens. This keeps everything inside one activity.
+
+---
+
+# Known Issues and Limitations
+
+- Timers continue running if the app is backgrounded
+- Game state is not saved between app restarts
+- The evolved form currently uses a placeholder image
+- The day counter starts at Day 0
+
+---
+
+# Future Plans
+
+- Save game state using DataStore
+- Add push notifications
+- Add a home screen widget
+- Add more minigames
+- Add hunger and mood systems
+- Add more evolution stages
+- Add multiple pet save profiles
+- Add local multiplayer
+- Add an in-game shop system
